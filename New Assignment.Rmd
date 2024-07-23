@@ -1,0 +1,99 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+# Call the packages
+
+```{r}
+library(ggplot2)
+```
+
+```{r}
+library(datasets)
+```
+
+#Import the dataset
+
+```{r}
+dataset=read.csv("Heart_Disease_Prediction.csv")
+dataset
+```
+#Summary of Dataset
+
+```{r}
+summary(dataset)
+```
+# Display Data rows
+
+```{r}
+head(dataset,5)
+```
+#Identifying Missing Values
+
+```{r}
+is.na(dataset)
+```
+
+```{r}
+colSums(is.na(dataset))
+```
+# Data Visualization
+
+Scatter Plot & Naming the graph
+
+```{r}
+ggplot(dataset,aes(x= Age,y= Cholesterol))+geom_point()+
+  ggtitle("Scatter Plot of People age Vs Cholesterol")
+```
+
+To colour the Scatter plot
+
+```{r}
+ggplot(dataset,aes(x=Age,y=Cholesterol))+geom_point(colour="red")
+```
+# How to find levels
+
+```{r}
+unique(dataset$Cholesterol)
+```
+
+#Box plot
+
+```{r}
+ggplot(dataset,aes(x=Chest.pain.type,y= Heart.Disease ))+geom_boxplot()+
+  ggtitle("Box Plot of Chest pain type Vs Heart Disease")
+```
+#How to Colour the Box Plot
+
+```{r}
+ggplot(dataset,aes(x= Age ,y=  Heart.Disease ,color="   Heart.Disease  "))+
+ geom_boxplot()  
+
+  
+```
+
+#Linear Regression 
+
+```{r}
+ggplot(dataset,aes(x=Age,y= Cholesterol))+
+  geom_point()+
+  geom_smooth(method ="lm",se = FALSE)+
+  labs(x="Age",y="Cholesterol")+
+  ggtitle("Linear Regression:People Age Vs Cholesterol")
+```
+
+# Regression Model
+
+```{r}
+model =lm(Age~Cholesterol,data =dataset)
+summary(model)
+```
+
+# Prediction
+
+```{r}
+dataset=data.frame(Cholesterol=c(394))
+predict(model,dataset)
+```
+
